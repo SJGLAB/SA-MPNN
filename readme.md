@@ -7,15 +7,15 @@
 ## ✨ Key Features
 
 * **Multimodal Architecture:** Seamlessly fuses structural embeddings with sequence-level representations.
-* **Rigorous Benchmarking:** Validated across 9 independent datasets including ΔΔG datasets (Megascale, Fireprot-homologue-free, S669, S2648, S571, S4346, and S2648 ) and ∆T_m datasets (S571 and S4346).
+* **Rigorous Benchmarking:** Validated across 9 independent datasets including $\Delta\Delta G$ datasets (Megascale, Fireprot-homologue-free, S669, S2648, S571, S4346, and S2648) and $\Delta T_m$ datasets (S571 and S4346).
 * **Dry-Wet Closed-Loop:** Model predictions are strongly correlated with experimental differential scanning fluorimetry (DSF) measurements on the UNcle platform.
 * **Robust Metrics:** To ensure precise physical interpretation, the evaluation metrics for AUPRC are strictly calibrated with a threshold of $0.0$ kcal/mol, distinctly separating stabilizing from destabilizing mutations.
 
 ## 🚀 Hardware Requirements
 
-The model has been fully optimized for local training and inference.
+The model has been fully optimized for local inference.
 
-* **GPU:** A single NVIDIA RTX 4090 (24GB VRAM) is sufficient for both full-scale training and high-throughput inference.
+* **GPU:** A single NVIDIA RTX 4090 (24GB VRAM) is sufficient for high-throughput inference.
 * **OS:** Linux (Ubuntu 20.04/22.04) or Windows Subsystem for Linux (WSL2).
 
 ## 🛠️ Installation
@@ -36,65 +36,29 @@ conda install pytorch==2.0.0 torchvision==0.15.0 torchaudio==2.0.0 pytorch-cuda=
 
 # 4. Install other dependencies
 pip install -r requirements.txt
-```
 
-## 📊 Dataset Preparation
 
-Pre-processed training and evaluation datasets (including the aligned Megascale and S571 PDB files) should be placed in the `data/` directory.
+## 📊 Data Availability
 
-```text
-SA-MPNN/
-├── data/
-│   ├── train/          # Training sets (Megascale)
-│   └── test/           # Benchmark sets (S571, S4346, etc.)
-├── weights/            # Pre-trained SA-MPNN checkpoints
-├── scripts/            # Evaluation scripts
-└── ...
+The pre-processed Megascale dataset splits, along with the Fireprot-homologue-free, S669, and SSYM_dir benchmarking datasets, are accessible through the ThermoMPNN data repository at https://github.com/Kuhlman-Lab/ThermoMPNN. The independent benchmarking datasets S8754 and S783 were downloaded from the GeoStab ddG data repository (https://github.com/Gonglab-THU/GeoStab/tree/main/data/ddG), while S4346 and S571 were obtained from the GeoStab dTm repository (https://github.com/Gonglab-THU/GeoStab/tree/main/data/dTm). The S2648 dataset is available on the INPS-MD platform (https://inpsmd.biocomp.unibo.it/inpsmd/datasets/).
 
-```
+SA-MPNN relies on the pre-trained ESM-2 (150M) model to extract sequence semantic features. You need to download the ESM weights and place them in the weights/ directory before running the inference script.
+
+# Download the ESM-2 (150M) model weights
+wget [https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t30_150M_UR50D.pt](https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t30_150M_UR50D.pt)
 
 ## 💻 Usage
 
-### 1. Inference (Predicting $\Delta\Delta G$ for new mutations)
+### Inference (Predicting $\Delta\Delta G$ for new mutations)
 
-To predict the thermodynamic impact of specific point mutations on a given PDB structure:
-
-```bash
-python predict.py \
-    --pdb_path ./examples/wildtype.pdb \
-    --mutations "A:V600E, A:T315I" \
-    --checkpoint ./weights/sampnn_best.pt \
-    --output_csv ./results/predictions.csv
-
-```
-
-### 2. Training the Model
-
-To train SA-MPNN from scratch on your custom datasets or reproduce the paper's results.
-
-> **Note on Training Dynamics:** To ensure smoother and more stable convergence, the default training configuration uses a **constant learning rate**. Dynamic learning rate schedulers have been intentionally excluded from the optimal training protocol.
+To predict the thermodynamic impact of specific point mutations on a given PDB structure, use the inference.sh script.
 
 ```bash
-python train.py \
-    --train_data ./data/train/ \
-    --val_data ./data/test/S571/ \
-    --batch_size 32 \
-    --learning_rate 1e-4 \
-    --epochs 100 \
-    --save_dir ./checkpoints/
-
-```
-
-## 📈 Evaluation
-
-To evaluate a trained model against standard benchmarks and output comprehensive metrics (SCC, PCC, R2, AUPRC):
-
-```bash
-python evaluate.py \
-    --test_data ./data/test/S571/ \
-    --checkpoint ./weights/sampnn_best.pt \
-    --auprc_threshold 0.0 
-
+python custom_inference.py \
+                --pdb ./examples/2R7E.pdb \
+                --chain B \
+                --model_path ./best_model/best_sa_mpnn.ckpt \
+                --out_dir ./results
 ```
 
 ## 📝 Citation
@@ -104,7 +68,7 @@ If you use SA-MPNN in your research, please cite our upcoming paper in the *Jour
 ```bibtex
 @article{sampnn2026,
   title={SA-MPNN: Integrating Sequence Semantic and Structural Features for Robust Prediction of Protein Thermodynamic Stability},
-  author={[Your Name] and [Co-first authors] and [Your PI's Name]},
+  author={[Xin Yue Zhang] and [Xiang Zheng] and [ Ji Guo Su]},
   journal={Journal of Chemical Information and Modeling},
   year={2026},
   note={Submitted/Under Review}
@@ -116,4 +80,3 @@ If you use SA-MPNN in your research, please cite our upcoming paper in the *Jour
 
 * The structural backbone is inspired by the foundational work of **ProteinMPNN** and **ThermoMPNN**.
 * Language model embeddings are derived from the **ESM** architecture.
-* Special thanks to the Guoyao Group for their support in the development of this computational pipeline.
