@@ -1,6 +1,6 @@
 ---
 
-# SA-MPNN: A Sequence-Aware ThermoMPNN for Accurate Prediction of Mutational Effects on Protein Thermodynamic Stability
+## SA-MPNN: A Sequence-Aware ThermoMPNN for Accurate Prediction of Mutational Effects on Protein Thermodynamic Stability
 
 **SA-MPNN** (Sequence-Aware ThermoMPNN) is a deep learning architecture designed for the highly accurate prediction of protein thermodynamic stability ($\Delta\Delta G$ and $T_m$). By integrating 3D structural constraints (via ProteinMPNN layers) with 1D sequence semantic features (via protein language models like ESM), SA-MPNN captures both global conformational flexibility and local microenvironment changes upon mutation.
 
@@ -36,20 +36,23 @@ conda install pytorch==2.0.0 torchvision==0.15.0 torchaudio==2.0.0 pytorch-cuda=
 
 # 4. Install other dependencies
 pip install -r requirements.txt
-
+```
 
 ## 📊 Data Availability
 
-The pre-processed Megascale dataset splits, along with the Fireprot-homologue-free, S669, and SSYM_dir benchmarking datasets, are accessible through the ThermoMPNN data repository at https://github.com/Kuhlman-Lab/ThermoMPNN. The independent benchmarking datasets S8754 and S783 were downloaded from the GeoStab ddG data repository (https://github.com/Gonglab-THU/GeoStab/tree/main/data/ddG), while S4346 and S571 were obtained from the GeoStab dTm repository (https://github.com/Gonglab-THU/GeoStab/tree/main/data/dTm). The S2648 dataset is available on the INPS-MD platform (https://inpsmd.biocomp.unibo.it/inpsmd/datasets/).
+The pre-processed Megascale dataset splits, along with the Fireprot-homologue-free, S669, and SSYM_dir benchmarking datasets, are accessible through the ThermoMPNN data repository at [https://github.com/Kuhlman-Lab/ThermoMPNN]. The independent benchmarking datasets S8754 and S783 were downloaded from the GeoStab ddG data repository ([https://github.com/Gonglab-THU/GeoStab/tree/main/data/ddG]), while S4346 and S571 were obtained from the GeoStab dTm repository ([https://github.com/Gonglab-THU/GeoStab/tree/main/data/dTm]). The S2648 dataset is available on the INPS-MD platform ([https://inpsmd.biocomp.unibo.it/inpsmd/datasets/]).
 
 SA-MPNN relies on the pre-trained ESM-2 (150M) model to extract sequence semantic features. You need to download the ESM weights and place them in the weights/ directory before running the inference script.
 
 # Download the ESM-2 (150M) model weights
-wget [https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t30_150M_UR50D.pt](https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t30_150M_UR50D.pt)
+[https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t30_150M_UR50D.pt](https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t30_150M_UR50D.pt)
+
+# Download the pre-trained model weights 
+[https://github.com/SJGLAB/SA-MPNN/releases/tag/v1.0.0]
 
 ## 💻 Usage
 
-### Inference (Predicting $\Delta\Delta G$ for new mutations)
+### Predicting $\Delta\Delta G$ for new mutations
 
 To predict the thermodynamic impact of specific point mutations on a given PDB structure, use the inference.sh script.
 
