@@ -4,7 +4,8 @@
 
 **SA-MPNN** (Sequence-Aware ThermoMPNN) is a deep learning architecture designed for the highly accurate prediction of protein thermodynamic stability ($\Delta\Delta G$ and $T_m$). By dynamically integrating 3D structural features with 1D sequence features, SA-MPNN captures both global conformational flexibility and local microenvironment changes upon mutation.
 
-<img width="1015" height="593" alt="image" src="https://github.com/user-attachments/assets/f70feeaa-32f1-4b05-bcc7-d3b82e9999e7" />
+<img width="1015" height="593" alt="image" src="https://github.com/user-attachments/assets/065fe205-99e0-4564-a8db-8b3ca6d4bcf2" />
+
 
 ## ✨ Key Features
 
@@ -12,12 +13,6 @@
 * **Rigorous Benchmarking:** Comprehensive evaluation across multiple independent benchmarking datasets, including $\Delta\Delta G$ datasets (Megascale, Fireprot-homologue-free, S669, S2648, S783, SSYM_dir) and $T_m$ datasets (S571 and S4346).
 * **Empirical Wet-Lab Validation:** Validated via rigorous wet-lab experiments using the UNcle platform. Among the top 20 predicted single-point mutants, 13 were successfully expressed, and 5 exhibited enhanced thermal stability, with the optimal variant (GC20) achieving a remarkable $\Delta T_m$ of +5.97 °C.
 * **Robust Metrics:** To ensure precise physical interpretation, the evaluation metrics for AUPRC are strictly calibrated with a threshold of 0.0 kcal/mol, distinctly separating stabilizing from destabilizing mutations.
-
-## 🚀 Hardware Requirements
-
-The model has been fully optimized for local training and inference.
-
-* **Hardware:** A single GPU with at least 40GB of VRAM is recommended for full-scale training and high-throughput inference.
 
 ## 🛠️ Installation
 
@@ -44,9 +39,14 @@ pip install -r requirements.txt
 **Download the datasets**
 The pre-processed Megascale dataset splits, along with the Fireprot-homologue-free, S669, and SSYM_dir benchmarking datasets, are accessible through the ThermoMPNN data repository at [https://github.com/Kuhlman-Lab/ThermoMPNN]. The independent benchmarking datasets S8754 and S783 were downloaded from the GeoStab ddG data repository ([https://github.com/Gonglab-THU/GeoStab/tree/main/data/ddG]), while S4346 and S571 were obtained from the GeoStab dTm repository ([https://github.com/Gonglab-THU/GeoStab/tree/main/data/dTm]). The S2648 dataset is available on the INPS-MD platform ([https://inpsmd.biocomp.unibo.it/inpsmd/datasets/]).
 
-**Download the ESM-2 (150M) model weights**
-SA-MPNN relies on the pre-trained ESM-2 (150M) model to extract sequence semantic features. You need to download the ESM weights and place them in the weights/ directory before running the inference script.
-[https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t30_150M_UR50D.pt](https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t30_150M_UR50D.pt)
+**Download the Pre-trained Language Model Weights**
+SA-MPNN relies on the pre-trained ESM-2 (150M) model as the default to extract sequence semantic features. However, we also support other variant models evaluated in our study. You need to modify the path in the script to point to the location of your downloaded model weights before running the inference script.
+
+* **ESM-2 (150M) [Default]:** [https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t30_150M_UR50D.pt](https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t30_150M_UR50D.pt)
+* **ESM-2 (8M):** [https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t6_8M_UR50D.pt](https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t6_8M_UR50D.pt)
+* **ESM-2 (650M):** [https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t33_650M_UR50D.pt](https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t33_650M_UR50D.pt)
+* **ESM-MSA-1b:** [https://dl.fbaipublicfiles.com/fair-esm/models/esm_msa1b_t12_100M_UR50S.pt](https://dl.fbaipublicfiles.com/fair-esm/models/esm_msa1b_t12_100M_UR50S.pt)
+* **E1 Models:** The retrieval-augmented E1 encoder models can be accessed and downloaded via the official Profluent GitHub repository: [https://github.com/Profluent-AI/E1](https://github.com/Profluent-AI/E1).
 
 **Download the pre-trained model weights** 
 [https://github.com/SJGLAB/SA-MPNN/releases/tag/v1.0.0]
