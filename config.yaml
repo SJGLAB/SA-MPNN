@@ -1,0 +1,29 @@
+project: self_mpnn
+name: SA-MPNN
+
+datasets: [megascale]
+
+training:
+  num_workers: 8
+  batch_size: 1
+  pin_memory: False
+  persistent_workers: False
+  epochs: 50
+  learn_rate: 0.0003
+  lr_schedule: false
+  weight_decay: 1e-4
+  early_stopping: true
+  patience: 10
+
+
+debug_fusion: true
+
+
+model:
+  hidden_dims: [64, 32]
+  subtract_mut: true
+  num_final_layers: 2
+  freeze_weights: true
+  load_pretrained: true
+  lightattn: true
+  dropout: 0.3

@@ -1,0 +1,20 @@
+platform:
+  accel: "gpu"
+  cache_dir: "/home/bingxing2/home/scx6a62/zxy/enzyme_stability_cache"
+  thermompnn_dir: "/home/bingxing2/home/scx6a62/zxy/"
+  log_file: "/home/bingxing2/home/scx6a62/zxy/metrics_log.txt"     
+
+data_loc:
+        megascale_csv: "/home/bingxing2/home/scx6a62/zxy/data_all/Tsuboyama2023_Dataset2_Dataset3_20230416.csv"
+        megascale_splits: "/home/bingxing2/home/scx6a62/zxy/dataset_splits/mega_splits.pkl"
+        megascale_pdbs: "/home/bingxing2/home/scx6a62/zxy/data_all/PDB/AlphaFold_model_PDBs"
+        fireprot_csv: "/home/bingxing2/home/scx6a62/zxy/data_all/4_fireprotDB_bestpH.csv"
+        fireprot_splits: "/home/bingxing2/home/scx6a62/zxy/dataset_splits/fireprot_splits.pkl"
+        fireprot_pdbs: "/home/bingxing2/home/scx6a62/zxy/data_all/PDB/all_fireprot_pdbs"
+
+esm:
+  enabled: true
+  #local_dir: "/home/bingxing2/home/scx6a62/zxy/esm_embedding_dict_150m.pt"
+  freeze: true
+  layer: -1
+  hidden_size: 640
