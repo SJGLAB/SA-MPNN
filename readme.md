@@ -44,10 +44,10 @@ The pre-processed Megascale dataset splits, along with the Fireprot-homologue-fr
 
 SA-MPNN relies on the pre-trained ESM-2 (150M) model to extract sequence semantic features. You need to download the ESM weights and place them in the weights/ directory before running the inference script.
 
-# Download the ESM-2 (150M) model weights
+**Download the ESM-2 (150M) model weights**
 [https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t30_150M_UR50D.pt](https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t30_150M_UR50D.pt)
 
-# Download the pre-trained model weights 
+**Download the pre-trained model weights** 
 [https://github.com/SJGLAB/SA-MPNN/releases/tag/v1.0.0]
 
 ## 💻 Usage
