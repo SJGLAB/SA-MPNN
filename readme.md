@@ -1,22 +1,23 @@
 ---
 
-## SA-MPNN: A Sequence-Aware ThermoMPNN for Accurate Prediction of Mutational Effects on Protein Thermodynamic Stability
+# SA-MPNN: A Sequence-Aware ThermoMPNN for Accurate Prediction of Mutational Effects on Protein Thermodynamic Stability
 
-**SA-MPNN** (Sequence-Aware ThermoMPNN) is a deep learning architecture designed for the highly accurate prediction of protein thermodynamic stability ($\Delta\Delta G$ and $T_m$). By integrating 3D structural constraints (via ProteinMPNN layers) with 1D sequence semantic features (via protein language models like ESM), SA-MPNN captures both global conformational flexibility and local microenvironment changes upon mutation.
+**SA-MPNN** (Sequence-Aware ThermoMPNN) is a deep learning architecture designed for the highly accurate prediction of protein thermodynamic stability ($\Delta\Delta G$ and $T_m$). By dynamically integrating 3D structural features with 1D sequence features, SA-MPNN captures both global conformational flexibility and local microenvironment changes upon mutation.
+
+<img width="1015" height="593" alt="image" src="https://github.com/user-attachments/assets/f70feeaa-32f1-4b05-bcc7-d3b82e9999e7" />
 
 ## ✨ Key Features
 
-* **Multimodal Architecture:** Seamlessly fuses structural embeddings with sequence-level representations.
-* **Rigorous Benchmarking:** Validated across 9 independent datasets including $\Delta\Delta G$ datasets (Megascale, Fireprot-homologue-free, S669, S2648, S571, S4346, and S2648) and $\Delta T_m$ datasets (S571 and S4346).
-* **Dry-Wet Closed-Loop:** Model predictions are strongly correlated with experimental differential scanning fluorimetry (DSF) measurements on the UNcle platform.
-* **Robust Metrics:** To ensure precise physical interpretation, the evaluation metrics for AUPRC are strictly calibrated with a threshold of $0.0$ kcal/mol, distinctly separating stabilizing from destabilizing mutations.
+* **Multimodal Architecture:** Seamlessly integrates protein 3D structural features with 1D sequence evolutionary features to improve stability prediction.
+* **Rigorous Benchmarking:** Comprehensive evaluation across multiple independent benchmarking datasets, including $\Delta\Delta G$ datasets (Megascale, Fireprot-homologue-free, S669, S2648, S783, SSYM_dir) and $T_m$ datasets (S571 and S4346).
+* **Empirical Wet-Lab Validation:** Validated via rigorous wet-lab experiments using the UNcle platform. Among the top 20 predicted single-point mutants, 13 were successfully expressed, and 5 exhibited enhanced thermal stability, with the optimal variant (GC20) achieving a remarkable $\Delta T_m$ of +5.97 °C.
+* **Robust Metrics:** To ensure precise physical interpretation, the evaluation metrics for AUPRC are strictly calibrated with a threshold of 0.0 kcal/mol, distinctly separating stabilizing from destabilizing mutations.
 
 ## 🚀 Hardware Requirements
 
-The model has been fully optimized for local inference.
+The model has been fully optimized for local training and inference.
 
-* **GPU:** A single NVIDIA RTX 4090 (24GB VRAM) is sufficient for high-throughput inference.
-* **OS:** Linux (Ubuntu 20.04/22.04) or Windows Subsystem for Linux (WSL2).
+* **Hardware:** A single GPU with at least 40GB of VRAM is recommended for full-scale training and high-throughput inference.
 
 ## 🛠️ Installation
 
@@ -38,13 +39,13 @@ conda install pytorch==2.0.0 torchvision==0.15.0 torchaudio==2.0.0 pytorch-cuda=
 pip install -r requirements.txt
 ```
 
-## 📊 Data Availability
+## 📊 Data and weights Availability
 
+**Download the datasets**
 The pre-processed Megascale dataset splits, along with the Fireprot-homologue-free, S669, and SSYM_dir benchmarking datasets, are accessible through the ThermoMPNN data repository at [https://github.com/Kuhlman-Lab/ThermoMPNN]. The independent benchmarking datasets S8754 and S783 were downloaded from the GeoStab ddG data repository ([https://github.com/Gonglab-THU/GeoStab/tree/main/data/ddG]), while S4346 and S571 were obtained from the GeoStab dTm repository ([https://github.com/Gonglab-THU/GeoStab/tree/main/data/dTm]). The S2648 dataset is available on the INPS-MD platform ([https://inpsmd.biocomp.unibo.it/inpsmd/datasets/]).
 
-SA-MPNN relies on the pre-trained ESM-2 (150M) model to extract sequence semantic features. You need to download the ESM weights and place them in the weights/ directory before running the inference script.
-
 **Download the ESM-2 (150M) model weights**
+SA-MPNN relies on the pre-trained ESM-2 (150M) model to extract sequence semantic features. You need to download the ESM weights and place them in the weights/ directory before running the inference script.
 [https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t30_150M_UR50D.pt](https://dl.fbaipublicfiles.com/fair-esm/models/esm2_t30_150M_UR50D.pt)
 
 **Download the pre-trained model weights** 
