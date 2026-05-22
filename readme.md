@@ -86,3 +86,9 @@ If you use SA-MPNN in your research, please cite our upcoming paper in the *Jour
 
 * The structural backbone is inspired by the foundational work of **ProteinMPNN** and **ThermoMPNN**.
 * Language model embeddings are derived from the **ESM** architecture.
+
+## Contact
+
+For any questions, bug reports, or feature requests regarding SA-MPNN, please feel free to reach out:
+
+* **Email:** [xinyuez686@gmail.com](mailto:xinyuez686@gmail.com)
