@@ -64,6 +64,8 @@ python custom_inference.py \
                 --model_path ./best_model/best_sa_mpnn.ckpt \
                 --out_dir ./results
 ```
+### `analysis/`
+Contains scripts for calculating evaluation metrics on the Megascale test set. It includes tools to compute model performance both at the individual protein level and aggregated across the entire dataset.
 
 ## 📝 Citation
 
