@@ -8,7 +8,7 @@ import sys
 sys.path.append('../')
 from datasets import MegaScaleDataset, ddgBenchDataset, FireProtDataset, Mutation
 from protein_mpnn_utils import loss_smoothed, tied_featurize
-from train_thermompnn import TransferModelPL
+from transfer_model_self import TransferModelPL
 from model_utils import featurize
 from thermompnn_benchmarking import compute_centrality, ProteinMPNNBaseline, get_trained_model, ALPHABET
 
