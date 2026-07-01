@@ -11,11 +11,26 @@ import sys
 sys.path.append('./')
 from datasets import Mutation
 from protein_mpnn_utils import tied_featurize, alt_parse_PDB
-from SSM import get_ssm_mutations
 from transfer_model_self import TransferModelPL
 import torch
 print(f"CUDA 可用状态: {torch.cuda.is_available()}")
 ALPHABET = 'ACDEFGHIKLMNPQRSTVWYX'
+
+
+def get_ssm_mutations(pdb):
+    # make mutation list for SSM run
+    mutation_list = []
+    for seq_pos in range(len(pdb['seq'])):
+        wtAA = pdb['seq'][seq_pos]
+        # check for missing residues
+        if wtAA != '-':
+            # add each mutation option
+            for mutAA in ALPHABET[:-1]:
+                mutation_list.append(wtAA + str(seq_pos) + mutAA)
+        else:
+            mutation_list.append(None)
+
+    return mutation_list
 
 
 def get_chains(pdb):
@@ -141,17 +156,16 @@ if __name__ == "__main__":
     if torch.cuda.is_available():
         torch.cuda.synchronize()
 
-# 【关键步骤 2】按下秒表，记录开始时间
+
     start_time = time.time()
     with torch.no_grad():
         main(cfg, args)
-    # 【关键步骤 3】等待 GPU 把核心推理工作彻底做完
+
     if torch.cuda.is_available():
         torch.cuda.synchronize()
 
-# 【关键步骤 4】按下秒表，记录结束时间，并算出差值
+
     end_time = time.time()
     real_time_cost = end_time - start_time
 
-# 打印出极其精确的秒数（保留3位小数）
     print(f"\n🚀   纯推理实际耗时 (Wall-clock time): {real_time_cost:.3f} 秒")
