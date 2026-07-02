@@ -2,7 +2,7 @@
 
 # SA-MPNN: A Sequence-Aware ThermoMPNN for Accurate Prediction of Mutational Effects on Protein Thermodynamic Stability
 
-**SA-MPNN** (Sequence-Aware ThermoMPNN) is a deep learning architecture designed for the highly accurate prediction of protein thermodynamic stability ($\Delta\Delta G$ and $T_m$). By dynamically integrating 3D structural features with 1D sequence features, SA-MPNN captures both global conformational flexibility and local microenvironment changes upon mutation.
+**SA-MPNN** (Sequence-Aware ThermoMPNN) is a deep learning architecture designed for the highly accurate prediction of protein thermodynamic stability ($\Delta\Delta G$ and $T_m$). By dynamically integrating 3D structural features with 1D sequence features, SA-MPNN captures both global conformational flexibility and local microenvironment changes upon mutation.https://colab.research.google.com/drive/1rjVDqtd3WYlJ4NWg3fGiH1yYf3P_DKOp?usp=sharing
 
 <img width="1015" height="593" alt="image" src="https://github.com/user-attachments/assets/065fe205-99e0-4564-a8db-8b3ca6d4bcf2" />
 
