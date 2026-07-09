@@ -87,7 +87,9 @@ def main(cfg, args):
     row = 0
     for name, model in models.items():
         model = model.eval()
-        model = model.cuda()
+        #model = model.cuda()
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        model = model.to(device)
         for dataset_name, dataset in datasets.items():
             if len(args.chain) < 1:  # if unspecified, take first chain
                 chain = get_chains(input_pdb)[0]
